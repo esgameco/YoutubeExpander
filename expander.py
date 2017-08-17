@@ -19,9 +19,9 @@ def show_resolution(resolutions):
 
 # Get resolution
 if input("Would you like to use a default resolution? (Y/N)") == 'y':
-    NORMAL_RESOLUTIONS = ((640, 480), (960, 720), (768, 1024), (1200, 1920), (1600, 2560))
-    WIDESCREEN_RESOLUTIONS = ((1280, 720), (1366, 768), (1600, 900), (1920, 1080), (2560, 1440), (3840, 2160))
-    if input("Do you want to use a widescreen (1) or a normal resolution (2)? ") == 1:
+    NORMAL_RESOLUTIONS = ((480, 640), (1024, 768), (2560, 1600))
+    WIDESCREEN_RESOLUTIONS = ((720, 1280), (1080, 1920), (2160, 3840))
+    if int(input("Do you want to use a Widescreen (1) or a Normal resolution (2)? ")) == 1:
         show_resolution(WIDESCREEN_RESOLUTIONS)
         RESOLUTION = WIDESCREEN_RESOLUTIONS[int(input("Which would you like to use? "))-1]
     else:
@@ -32,8 +32,8 @@ else:
     WIDTH = int(input("Enter The Width: "))
     RESOLUTION = (HEIGHT, WIDTH)
 
-HEIGHT = RESOLUTION[0]
 WIDTH = RESOLUTION[1]
+HEIGHT = RESOLUTION[0]
 FOURTH_RESOLUTION = (int(HEIGHT/2), int(WIDTH/2))
 
 path = "/Expander/" + video.videoid
@@ -58,7 +58,8 @@ def standard():
         four_times_clip = CompositeVideoClip(clips=[video_clip.set_position((0, 0)),
                                                     video_clip.set_position((WIDTH/2, 0)),
                                                     video_clip.set_position((0, HEIGHT/2)),
-                                                    video_clip.set_position((WIDTH/2, HEIGHT/2))], size=(WIDTH, HEIGHT))
+                                                    video_clip.set_position((WIDTH/2, HEIGHT/2))],
+                                             size=(WIDTH, HEIGHT))
         four_times_clip.write_videofile(videos_path + str(current_total * 4) + ".mp4")
         output_videos.append(four_times_clip)
         current_total *= 4
@@ -70,9 +71,9 @@ def delayed():
         current_path = videos_path + str(current_total) + ".mp4"
         video_clip = VideoFileClip(filename=current_path, target_resolution=FOURTH_RESOLUTION)
         four_times_clip = CompositeVideoClip(clips=[video_clip.set_position((0, 0)),
-                                                    video_clip.set_position((WIDTH / 2, 0)).set_start(0.05),
-                                                    video_clip.set_position((0, HEIGHT / 2)).set_start(0.05),
-                                                    video_clip.set_position((WIDTH / 2, HEIGHT / 2)).set_start(0.10)],
+                                                    video_clip.set_position((WIDTH/2, 0)).set_start(0.05),
+                                                    video_clip.set_position((0, HEIGHT/2)).set_start(0.05),
+                                                    video_clip.set_position((WIDTH/2, HEIGHT/2)).set_start(0.10)],
                                              size=(WIDTH, HEIGHT))
         four_times_clip.write_videofile(videos_path + str(current_total * 4) + ".mp4")
         output_videos.append(four_times_clip)
